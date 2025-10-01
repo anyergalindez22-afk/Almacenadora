@@ -1,3 +1,4 @@
 build/default/production/ASCENSOR.p1:  \
 ASCENSOR.c  \
-CONFIGURACION.h 
+CONFIGURACION.h  \
+lcd.h 

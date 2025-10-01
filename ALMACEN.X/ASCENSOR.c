@@ -1,12 +1,13 @@
 #include "CONFIGURACION.h"
 #include <xc.h>
 #include <stdio.h>
+#include "lcd.h"
 #define _XTAL_FREQ 4000000
 
 #define IN PORTBbits.RB0 //Originalemnte PA Y PP VAN EN UN MISMO PIN    
 #define EJEX PORTBbits.RB1
-//#define FCIZ PORTBbits.RB2
-//#define CEXT PORTBbits.RB3
+#define CLEAR PORTBbits.RB2
+#define LLENAR PORTBbits.RB3
 #define IZQ PORTBbits.RB4
 #define DER PORTBbits.RB5
 #define ARRIBA PORTBbits.RB6
@@ -28,8 +29,14 @@
 #define DERECHA LATDbits.LATD1
 #define SUBIR LATDbits.LATD2
 #define BAJAR LATDbits.LATD3
-
+const char figura_1[8] = {0x1B, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1B, 0x1F};
+const char figura_2[8] = {0x1B, 0x11, 0x1F, 0x1F, 0x1F, 0x11, 0x1B, 0x00};
 char METAL=0, BLANCA=0, NEGRA=0;
+int Fila1[4];
+int Fila2[4];
+int Fila3[4];
+char f=0, c=0;
+
 
 void init_ports(void){
     ADCON1bits.PCFG=0x0F;// salida Digital
@@ -50,21 +57,26 @@ void init_ports(void){
 }
 
 void init_int(void){
+    
     RCONbits.IPEN= 1;                //HABILITAS LAS PRIORIDADES
+    INTCONbits.RBIE=1;               //HABILITAMOS INTERRUPCIONES DE RB
+    INTCONbits.RBIF=0;               //BAJAMOS LA BANDERA
+    INTCON2bits.RBIP=0;              //BAJA PRIORIDAD PARA RB
     T0CON = 0B01111000;              //TMR0 CONFIGURADO COMO CONTADOR A PARTIR DE LOS PULSOS DESCENDENTES EN EL PIN TOCKI
     INTCON = 0B10101000;             //CONFIGURA LAS INTERRUPCIONES PARA PODER INTERRUMPIR POR OVERFLOW DEL TMR0 O CAMBIO EN EL PORTB
     INTCON2bits.TMR0IP = 1;          //PRIORIDAD ALTA PARA TMR0
+    
     return;
 }
 
 void reposo(void){
-	if(FCX1==1){
+	if(FCY1==1){
 		BAJAR=1;
     	while(FCY1==1);
     	BAJAR=0;	
 	}	
 	
-    if(FCY1==1){
+    if(FCX1==1){
     	IZQUIERDA=1;
     	while(FCX1==1);
     	IZQUIERDA=0;	
@@ -90,6 +102,42 @@ void detectar(void){                //DESBORDE EN 256 DEL CONTADOR, ALTURA INICI
 	}
     return;
 }
+void Actualizar_Matriz(){
+    Lcd_Set_Cursor(1,12);
+    for(int i=0;i<=3;i++){
+        if (Fila1[i]==0){
+            Lcd_Write_Char(0);
+        }
+        else
+        {
+            Lcd_Write_Char(1);
+        }
+    }
+    Lcd_Set_Cursor(2,12);
+    for(int i=0;i<=3;i++){
+        if (Fila2[i]==0){
+            Lcd_Write_Char(0);
+        }
+        else
+        {
+            Lcd_Write_Char(1);
+        }
+    }
+    Lcd_Set_Cursor(3,12);
+    for(int i=0;i<=3;i++){
+        if (Fila3[i]==0){
+            Lcd_Write_Char(0);
+        }
+        else
+        {
+            Lcd_Write_Char(1);
+        }
+    }
+    Lcd_Set_Cursor(1,12);
+    f=1;
+    c=12;
+}
+
 
 void __interrupt(high_priority) Stop(void){
 INTCONbits.GIEH = 0;
@@ -100,9 +148,46 @@ INTCONbits.TMR0IF = 0;
 INTCONbits.GIEH = 1;
 }
 
+void __interrupt(low_priority) LowISR(void){
+    Lcd_Blink();
+    if (INTCONbits.RBIF){
+       volatile unsigned char dummy = PORTB;
+       INTCONbits.RBIF=0;
+      
+       if (ARRIBA==1 && f>1){      
+           f--;
+       }
+       if (ABAJO==1 && f<3){
+           f++;
+       }     
+       if (IZQ==1 && c>12){
+          c--; 
+       }
+       if (DER==1 && c< 15){
+           c++;
+       }
+       
+       Lcd_Set_Cursor(f,c);
+    }
+}
+void Modificar(){
+    if (LLENAR==1){
+        Lcd_Write_Char(1);
+        //AQUI DEBERIA MODIFICAR LA MEMORIA, Y EL VECTOR DONDE SE GUARDO
+        c++;
+        while(LLENAR==1);
+    }
+    if  (CLEAR==1){
+        Lcd_Write_Char(0);
+        //AQUI DEBERIA MODIFICAR LA MEMORIA, Y EL VECTOR DONDE SE GUARDO
+        c++;
+         while(CLEAR==1);
+    }
+    Lcd_NoBlink();
+}
 void dejar(){ //PRIMERO MOVER A LA DERECHA Y LUEGO HACIA ARRIBA, PARA MOVER A LA DERECHA ES NECESARIO CONSULTAR LA MEMORIA
 	//METER PARA DESPLAZAR A LA DERECHA EN BASE A LA INFORMACION EN LA MEMORIA
-    DERECHA=1
+    DERECHA=1;
     DERECHA=0;
     
     SUBIR= 1;
@@ -123,14 +208,33 @@ void dejar(){ //PRIMERO MOVER A LA DERECHA Y LUEGO HACIA ARRIBA, PARA MOVER A LA
 void main(void) {
     init_ports();
     init_int();
+    Lcd_Init();
+    Lcd_CGRAM_Init();
+    Lcd_CGRAM_CreateChar(0,figura_1);   //GUARDAMOS EL CARACTER ESPECIAL PARA MOSTRAR VACIO
+    Lcd_CGRAM_CreateChar(1,figura_2);   //GUARDAMOS EL CARACTER ESPECIAL PARA MOSTRAR LLENO
+    Lcd_CGRAM_Close();
+    Lcd_Clear();
+    Lcd_Set_Cursor(1,1);
+    Lcd_Write_String("Negras");
+    Lcd_Set_Cursor(2,1);
+    Lcd_Write_String("Blancas");
+    Lcd_Set_Cursor(3,1);
+    Lcd_Write_String("Metal");
     __delay_ms(200);
     
     while(1){
-    while(IN==1){
+        Actualizar_Matriz();
+        INTCONbits.GIEL=1;
+    while(IN==0){
 		if(FCX1==1 || FCY1==1){ //ASEGURAR BUENA LOGICA DE ACTIVACION DE LA FUNCI0N!!
     		reposo();  			     //SE LLEVA A LA POSICION INICIAL, ESTO SEIMPRE QUE SE ESPERE POR INGRESAR OTRA PIEZA AL ALMACEN
 		}
+        if( CLEAR==1 || LLENAR==1){
+            Modificar();
+        }
     };	
+    Lcd_Set_Cursor(2,1);
+    Lcd_Write_Char(1);
     detectar();	  			     //SE DETECTA LA PIEZA EN BASE A COMO COLOQUEMOS LOS SWITCHES PZA0 Y PZA1}
     if(METAL==1 || BLANCA==1 || NEGRA==1){  //REALMENTE ESTE IF SE PUEDE OBVIAR DE ALGUNA FORMA PROGRAMANDO MEJOR
     dejar();    
