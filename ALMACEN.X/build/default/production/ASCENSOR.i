@@ -6101,37 +6101,114 @@ char *ctermid(char *);
 
 char *tempnam(const char *, const char *);
 # 4 "ASCENSOR.c" 2
-# 33 "ASCENSOR.c"
-void init_ports(){
-     ADCON1bits.PCFG=0x0F;
-     TRISB=0XFF;
-     TRISA=0XFF;
-     TRISD=0X00;
-     TRISE=0X00;
-     LATA=0X00;
-     LATB=0X00;
-     LATC=0X00;
-     LATD=0X00;
-     LATE=0X00;
-     TRISC=0XFF;
-     TRISCbits.RC0=0;
-     TRISCbits.RC6=0;
-     return;
+# 32 "ASCENSOR.c"
+char METAL=0, BLANCA=0, NEGRA=0;
+
+void init_ports(void){
+    ADCON1bits.PCFG=0x0F;
+    TRISB=0XFF;
+    TRISA=0XFF;
+    TRISD=0X00;
+    TRISE=0X00;
+    TRISC=0XFF;
+    TRISCbits.RC0=0;
+    TRISCbits.RC6=0;
+
+    LATA=0X00;
+    LATB=0X00;
+    LATC=0X00;
+    LATD=0X00;
+    LATE=0X00;
+    return;
 }
+
+void init_int(void){
+    RCONbits.IPEN= 1;
+    T0CON = 0B01111000;
+    INTCON = 0B10101000;
+    INTCON2bits.TMR0IP = 1;
+    return;
+}
+
+void __attribute__((picinterrupt(("high_priority")))) Stop(void){
+INTCONbits.GIEH = 0;
+T0CONbits.TMR0ON = 0;
+LATDbits.LATD2=0;
+LATDbits.LATD3=0;
+INTCONbits.TMR0IF = 0;
+INTCONbits.GIEH = 1;
+}
+
+void reposo(void){
+ if(PORTAbits.RA2==1){
+  LATDbits.LATD3=1;
+     while(PORTAbits.RA1==1);
+     LATDbits.LATD3=0;
+ }
+
+    if(PORTAbits.RA1==1){
+     LATDbits.LATD0=1;
+     while(PORTAbits.RA2==1);
+     LATDbits.LATD0=0;
+ }
+    return;
+}
+
+void detectar(void){
+ if(PORTCbits.RC1==0 && PORTCbits.RC2==1){
+  METAL=1;
+  TMR0L= 250;
+        T0CONbits.TMR0ON = 1;
+ }
+ else if(PORTCbits.RC1==1 && PORTCbits.RC2==0){
+  BLANCA=1;
+        TMR0L= 233;
+        T0CONbits.TMR0ON = 1;
+ }
+ else if(PORTCbits.RC1==0 && PORTCbits.RC2==0){
+  NEGRA=1;
+        TMR0L= 222;
+        T0CONbits.TMR0ON = 1;
+ }
+    return;
+}
+
+void dejar(){
+
+
+    LATDbits.LATD2= 1;
+    while(LATDbits.LATD2==1);
+    _delay((unsigned long)((500)*(4000000/4000.0)));
+    LATCbits.LC0=1;
+    _delay((unsigned long)((250)*(4000000/4000.0)));
+    TMR0L= 253;
+    T0CONbits.TMR0ON = 1;
+    LATDbits.LATD3=1;
+    while(LATDbits.LATD3==1);
+    _delay((unsigned long)((500)*(4000000/4000.0)));
+    LATCbits.LC0=0;
+    _delay((unsigned long)((200)*(4000000/4000.0)));
+    return;
+}
+
 void main(void) {
     init_ports();
+    init_int();
     _delay((unsigned long)((200)*(4000000/4000.0)));
-    LATDbits.LATD3=1;
-    while(PORTAbits.RA1==1);
-    LATDbits.LATD3=0;
-    LATDbits.LATD0=1;
-    while(PORTAbits.RA2==1);
-    LATDbits.LATD0=0;
-    while(PORTBbits.RB0==0);
-    _delay((unsigned long)((500)*(4000000/4000.0)));
-    LATDbits.LATD1=1;
-    _delay((unsigned long)((1000)*(4000000/4000.0)));
-    LATDbits.LATD1=0;
 
-    return;
+    while(1){
+    while(PORTBbits.RB0==1){
+  if(PORTAbits.RA2==1 || PORTAbits.RA1==1){
+      reposo();
+  }
+    };
+    detectar();
+    if(METAL==1 || BLANCA==1 || NEGRA==1){
+    dejar();
+     }
+    else {
+
+    }
+ };
+ return;
 }
