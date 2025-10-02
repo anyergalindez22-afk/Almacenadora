@@ -1,10 +1,3 @@
-/* 
- * File:   CONFIGURACION.h
- * Author: XXX
- *
- * Created on 29 de septiembre de 2025, 04:27 PM
- */
-
 #ifndef CONFIGURACION_H
 #define	CONFIGURACION_H
 #pragma config PLLDIV = 1       // PLL Prescaler Selection bits (No prescale (4 MHz oscillator input drives PLL directly))

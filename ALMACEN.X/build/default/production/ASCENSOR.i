@@ -8,7 +8,8 @@
 # 2 "<built-in>" 2
 # 1 "ASCENSOR.c" 2
 # 1 "./CONFIGURACION.h" 1
-# 10 "./CONFIGURACION.h"
+
+
 #pragma config PLLDIV = 1
 #pragma config CPUDIV = OSC1_PLL2
 #pragma config USBDIV = 1
@@ -6188,31 +6189,35 @@ void reposo(void){
 void detectar(void){
  if(PORTCbits.RC1==0 && PORTCbits.RC2==1){
   METAL=1;
-  TMR0L= 250;
+  TMR0L= 249;
         T0CONbits.TMR0ON = 1;
  }
  else if(PORTCbits.RC1==1 && PORTCbits.RC2==0){
   BLANCA=1;
-        TMR0L= 233;
+        TMR0L= 232;
         T0CONbits.TMR0ON = 1;
  }
  else if(PORTCbits.RC1==0 && PORTCbits.RC2==0){
   NEGRA=1;
-        TMR0L= 222;
+        TMR0L= 220;
         T0CONbits.TMR0ON = 1;
  }
+    Lcd_Set_Cursor(4,1);
+    Lcd_Write_String("DETECTADO");
     return;
 }
 
 void Actualizar_Matriz(){
     Lcd_Set_Cursor(1,12);
+    char acum=0;
     for(char i=0;i<=3;i++){
-        if (Fila1[i]==0){
+        if (Fila3[i]==0){
             Lcd_Write_Char(0);
         }
         else
         {
             Lcd_Write_Char(1);
+            acum++;
         }
     }
     Lcd_Set_Cursor(2,12);
@@ -6223,32 +6228,52 @@ void Actualizar_Matriz(){
         else
         {
             Lcd_Write_Char(1);
+            acum++;
         }
     }
     Lcd_Set_Cursor(3,12);
     for(char i=0;i<=3;i++){
-        if (Fila3[i]==0){
+        if (Fila1[i]==0){
             Lcd_Write_Char(0);
         }
         else
         {
             Lcd_Write_Char(1);
+            acum++;
         }
     }
     Lcd_Set_Cursor(1,12);
     f=1;
     c=12;
+
+
+
+
+
+
+
+}
+
+void Clear(void){
+    char cl=0;
+    for (char i=0; i<=9; i++){
+        EEPROM_Write(i,cl);
+    }
 }
 
 void guardar(void){
+    char media;
     for (char i=0; i<=3; i++){
-        EEPROM_Write(i,Fila1[i]);
+        media= Fila1[i];
+        EEPROM_Write(i,media);
     }
     for (char i=0; i<=3; i++){
-        EEPROM_Write(i+4,Fila2[i]);
+        media= Fila2[i];
+        EEPROM_Write(i+4,media);
     }
     for (char i=0; i<=3; i++){
-        EEPROM_Write(i+8,Fila3[i]);
+        media= Fila3[i];
+        EEPROM_Write(i+8,media);
     }
 }
 
@@ -6298,31 +6323,70 @@ INTCONbits.GIEH = 1;
 }
 
 void Modificar(){
-    if (PORTBbits.RB3==1){
+    if (PORTBbits.RB2==1){
         Lcd_Write_Char(1);
 
         c++;
-        while(PORTBbits.RB3==1);
+        while(PORTBbits.RB2==1);
     }
-    if (PORTBbits.RB2==1){
+    if (PORTBbits.RB3==1){
         Lcd_Write_Char(0);
 
         c++;
-         while(PORTBbits.RB2==1);
+         while(PORTBbits.RB3==1);
     }
     Lcd_NoBlink();
 
 }
 
 void dejar(){
+    char acum=0, SALTO;
+
+    if(METAL!=0){
+        for(char i=0;i<=3;i++){
+            if(Fila1[i]==0){
+                Fila1[i]=1;
+                SALTO= (i+1)*9;
+                break;
+            }
+        }
+    }
+    else if(BLANCA!=0){
+        for(char i=0;i<=3;i++){
+            if(Fila2[i]==0){
+                Fila2[i]=1;
+                SALTO= (i+1)*9;
+                break;
+            }
+        }
+    }
+    else if(NEGRA!=0){
+        for(char i=0;i<=3;i++){
+            if(Fila3[i]==0){
+                Fila3[i]=1;
+                SALTO= (i+1)*9;
+
+                break;
+            }
+        }
+    }
 
     LATDbits.LATD1=1;
+    while(acum!=SALTO){
+        if(PORTBbits.RB1==1){
+            acum++;
+        }
+        _delay((unsigned long)((20)*(4000000/4000.0)));
+        while(PORTBbits.RB1==0);
+    }
     LATDbits.LATD1=0;
+    _delay((unsigned long)((200)*(4000000/4000.0)));
 
     LATDbits.LATD2= 1;
     while(LATDbits.LATD2==1);
     _delay((unsigned long)((500)*(4000000/4000.0)));
     LATCbits.LC0=1;
+    while(PORTAbits.RA5==1);
     _delay((unsigned long)((250)*(4000000/4000.0)));
     TMR0L= 253;
     T0CONbits.TMR0ON = 1;
@@ -6330,7 +6394,11 @@ void dejar(){
     while(LATDbits.LATD3==1);
     _delay((unsigned long)((500)*(4000000/4000.0)));
     LATCbits.LC0=0;
+    while(PORTAbits.RA3==1);
     _delay((unsigned long)((200)*(4000000/4000.0)));
+    METAL=0;
+    BLANCA=0;
+    NEGRA=0;
     return;
 }
 
@@ -6338,13 +6406,12 @@ void main(void) {
     init_ports();
     init_int();
     Lcd_Init();
-
     Lcd_CGRAM_Init();
     Lcd_CGRAM_CreateChar(0,figura_1);
     Lcd_CGRAM_CreateChar(1,figura_2);
     Lcd_CGRAM_Close();
 
-    estado();
+
     Lcd_Clear();
     Lcd_Set_Cursor(1,1);
     Lcd_Write_String("NEGRAS");
@@ -6356,24 +6423,23 @@ void main(void) {
 
     while(1){
         Actualizar_Matriz();
+        reposo();
         INTCONbits.GIEL=1;
-    while(PORTBbits.RB0==0){
-  if(PORTAbits.RA2==1 || PORTAbits.RA1==1){
-      reposo();
-  }
-        if( PORTBbits.RB2==1 || PORTBbits.RB3==1){
-            Modificar();
-        }
-    };
-    Lcd_Set_Cursor(2,1);
-    Lcd_Write_Char(1);
-    detectar();
-    if(METAL==1 || BLANCA==1 || NEGRA==1){
-    dejar();
-     }
-    else {
+        Lcd_Set_Cursor(4,1);
+        Lcd_Write_String("INICIO");
+    while(PORTBbits.RB0==1){
 
-    }
+        if( PORTBbits.RB3==1 || PORTBbits.RB2==1){
+            Modificar();
+        };
+    };
+    Lcd_Set_Cursor(4,1);
+    Lcd_Write_String("Hola");
+    detectar();
+    if((METAL==1 || BLANCA==1 || NEGRA==1)){
+    dejar();
+    guardar();
+     }
  };
  return;
 }
