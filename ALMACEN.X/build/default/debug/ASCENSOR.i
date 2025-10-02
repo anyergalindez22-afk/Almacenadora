@@ -6329,6 +6329,7 @@ void dejar(){
     LATDbits.LATD3=1;
     while(LATDbits.LATD3==1);
     _delay((unsigned long)((500)*(4000000/4000.0)));
+    guardar();
     LATCbits.LC0=0;
     _delay((unsigned long)((200)*(4000000/4000.0)));
     return;

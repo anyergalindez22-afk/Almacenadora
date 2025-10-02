@@ -1668,157 +1668,160 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ASCENSOR.c: 228:     _delay((unsigned long)((500)*(4000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "229
-[; ;ASCENSOR.c: 229:     LATCbits.LC0=0;
-[e = . . _LATCbits 1 0 -> -> 0 `i `uc ]
+[; ;ASCENSOR.c: 229:     guardar();
+[e ( _guardar ..  ]
 "230
-[; ;ASCENSOR.c: 230:     _delay((unsigned long)((200)*(4000000/4000.0)));
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;ASCENSOR.c: 230:     LATCbits.LC0=0;
+[e = . . _LATCbits 1 0 -> -> 0 `i `uc ]
 "231
-[; ;ASCENSOR.c: 231:     return;
-[e $UE 462  ]
+[; ;ASCENSOR.c: 231:     _delay((unsigned long)((200)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "232
-[; ;ASCENSOR.c: 232: }
+[; ;ASCENSOR.c: 232:     return;
+[e $UE 462  ]
+"233
+[; ;ASCENSOR.c: 233: }
 [e :UE 462 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"234
-[; ;ASCENSOR.c: 234: void main(void) {
+"235
+[; ;ASCENSOR.c: 235: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"235
-[; ;ASCENSOR.c: 235:     init_ports();
-[e ( _init_ports ..  ]
 "236
-[; ;ASCENSOR.c: 236:     init_int();
-[e ( _init_int ..  ]
+[; ;ASCENSOR.c: 236:     init_ports();
+[e ( _init_ports ..  ]
 "237
-[; ;ASCENSOR.c: 237:     Lcd_Init();
+[; ;ASCENSOR.c: 237:     init_int();
+[e ( _init_int ..  ]
+"238
+[; ;ASCENSOR.c: 238:     Lcd_Init();
 [e ( _Lcd_Init ..  ]
-"239
-[; ;ASCENSOR.c: 239:     Lcd_CGRAM_Init();
-[e ( _Lcd_CGRAM_Init ..  ]
 "240
-[; ;ASCENSOR.c: 240:     Lcd_CGRAM_CreateChar(0,figura_1);
-[e ( _Lcd_CGRAM_CreateChar (2 , -> -> 0 `i `uc &U _figura_1 ]
+[; ;ASCENSOR.c: 240:     Lcd_CGRAM_Init();
+[e ( _Lcd_CGRAM_Init ..  ]
 "241
-[; ;ASCENSOR.c: 241:     Lcd_CGRAM_CreateChar(1,figura_2);
-[e ( _Lcd_CGRAM_CreateChar (2 , -> -> 1 `i `uc &U _figura_2 ]
+[; ;ASCENSOR.c: 241:     Lcd_CGRAM_CreateChar(0,figura_1);
+[e ( _Lcd_CGRAM_CreateChar (2 , -> -> 0 `i `uc &U _figura_1 ]
 "242
-[; ;ASCENSOR.c: 242:     Lcd_CGRAM_Close();
+[; ;ASCENSOR.c: 242:     Lcd_CGRAM_CreateChar(1,figura_2);
+[e ( _Lcd_CGRAM_CreateChar (2 , -> -> 1 `i `uc &U _figura_2 ]
+"243
+[; ;ASCENSOR.c: 243:     Lcd_CGRAM_Close();
 [e ( _Lcd_CGRAM_Close ..  ]
-"244
-[; ;ASCENSOR.c: 244:     estado();
-[e ( _estado ..  ]
 "245
-[; ;ASCENSOR.c: 245:     Lcd_Clear();
-[e ( _Lcd_Clear ..  ]
+[; ;ASCENSOR.c: 245:     estado();
+[e ( _estado ..  ]
 "246
-[; ;ASCENSOR.c: 246:     Lcd_Set_Cursor(1,1);
-[e ( _Lcd_Set_Cursor (2 , -> -> 1 `i `uc -> -> 1 `i `uc ]
+[; ;ASCENSOR.c: 246:     Lcd_Clear();
+[e ( _Lcd_Clear ..  ]
 "247
-[; ;ASCENSOR.c: 247:     Lcd_Write_String("NEGRAS");
-[e ( _Lcd_Write_String (1 :s 1C ]
+[; ;ASCENSOR.c: 247:     Lcd_Set_Cursor(1,1);
+[e ( _Lcd_Set_Cursor (2 , -> -> 1 `i `uc -> -> 1 `i `uc ]
 "248
-[; ;ASCENSOR.c: 248:     Lcd_Set_Cursor(2,1);
-[e ( _Lcd_Set_Cursor (2 , -> -> 2 `i `uc -> -> 1 `i `uc ]
+[; ;ASCENSOR.c: 248:     Lcd_Write_String("NEGRAS");
+[e ( _Lcd_Write_String (1 :s 1C ]
 "249
-[; ;ASCENSOR.c: 249:     Lcd_Write_String("BLANCAS");
-[e ( _Lcd_Write_String (1 :s 2C ]
+[; ;ASCENSOR.c: 249:     Lcd_Set_Cursor(2,1);
+[e ( _Lcd_Set_Cursor (2 , -> -> 2 `i `uc -> -> 1 `i `uc ]
 "250
-[; ;ASCENSOR.c: 250:     Lcd_Set_Cursor(3,1);
-[e ( _Lcd_Set_Cursor (2 , -> -> 3 `i `uc -> -> 1 `i `uc ]
+[; ;ASCENSOR.c: 250:     Lcd_Write_String("BLANCAS");
+[e ( _Lcd_Write_String (1 :s 2C ]
 "251
-[; ;ASCENSOR.c: 251:     Lcd_Write_String("METAL");
-[e ( _Lcd_Write_String (1 :s 3C ]
+[; ;ASCENSOR.c: 251:     Lcd_Set_Cursor(3,1);
+[e ( _Lcd_Set_Cursor (2 , -> -> 3 `i `uc -> -> 1 `i `uc ]
 "252
-[; ;ASCENSOR.c: 252:     _delay((unsigned long)((200)*(4000000/4000.0)));
+[; ;ASCENSOR.c: 252:     Lcd_Write_String("METAL");
+[e ( _Lcd_Write_String (1 :s 3C ]
+"253
+[; ;ASCENSOR.c: 253:     _delay((unsigned long)((200)*(4000000/4000.0)));
 [e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"254
-[; ;ASCENSOR.c: 254:     while(1){
+"255
+[; ;ASCENSOR.c: 255:     while(1){
 [e :U 471 ]
 {
-"255
-[; ;ASCENSOR.c: 255:         Actualizar_Matriz();
-[e ( _Actualizar_Matriz ..  ]
 "256
-[; ;ASCENSOR.c: 256:         INTCONbits.GIEL=1;
-[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
+[; ;ASCENSOR.c: 256:         Actualizar_Matriz();
+[e ( _Actualizar_Matriz ..  ]
 "257
-[; ;ASCENSOR.c: 257:     while(PORTBbits.RB0==0){
+[; ;ASCENSOR.c: 257:         INTCONbits.GIEL=1;
+[e = . . _INTCONbits 2 1 -> -> 1 `i `uc ]
+"258
+[; ;ASCENSOR.c: 258:     while(PORTBbits.RB0==0){
 [e $U 473  ]
 [e :U 474 ]
 {
-"258
-[; ;ASCENSOR.c: 258:   if(PORTAbits.RA2==1 || PORTAbits.RA1==1){
+"259
+[; ;ASCENSOR.c: 259:   if(PORTAbits.RA2==1 || PORTAbits.RA1==1){
 [e $ ! || == -> . . _PORTAbits 0 2 `i -> 1 `i == -> . . _PORTAbits 0 1 `i -> 1 `i 476  ]
 {
-"259
-[; ;ASCENSOR.c: 259:       reposo();
-[e ( _reposo ..  ]
 "260
-[; ;ASCENSOR.c: 260:   }
+[; ;ASCENSOR.c: 260:       reposo();
+[e ( _reposo ..  ]
+"261
+[; ;ASCENSOR.c: 261:   }
 }
 [e :U 476 ]
-"261
-[; ;ASCENSOR.c: 261:         if( PORTBbits.RB2==1 || PORTBbits.RB3==1){
+"262
+[; ;ASCENSOR.c: 262:         if( PORTBbits.RB2==1 || PORTBbits.RB3==1){
 [e $ ! || == -> . . _PORTBbits 0 2 `i -> 1 `i == -> . . _PORTBbits 0 3 `i -> 1 `i 477  ]
 {
-"262
-[; ;ASCENSOR.c: 262:             Modificar();
-[e ( _Modificar ..  ]
 "263
-[; ;ASCENSOR.c: 263:         }
+[; ;ASCENSOR.c: 263:             Modificar();
+[e ( _Modificar ..  ]
+"264
+[; ;ASCENSOR.c: 264:         }
 }
 [e :U 477 ]
-"264
-[; ;ASCENSOR.c: 264:     };
+"265
+[; ;ASCENSOR.c: 265:     };
 }
 [e :U 473 ]
-"257
-[; ;ASCENSOR.c: 257:     while(PORTBbits.RB0==0){
+"258
+[; ;ASCENSOR.c: 258:     while(PORTBbits.RB0==0){
 [e $ == -> . . _PORTBbits 0 0 `i -> 0 `i 474  ]
 [e :U 475 ]
-"265
-[; ;ASCENSOR.c: 265:     Lcd_Set_Cursor(2,1);
-[e ( _Lcd_Set_Cursor (2 , -> -> 2 `i `uc -> -> 1 `i `uc ]
 "266
-[; ;ASCENSOR.c: 266:     Lcd_Write_Char(1);
-[e ( _Lcd_Write_Char (1 -> -> 1 `i `uc ]
+[; ;ASCENSOR.c: 266:     Lcd_Set_Cursor(2,1);
+[e ( _Lcd_Set_Cursor (2 , -> -> 2 `i `uc -> -> 1 `i `uc ]
 "267
-[; ;ASCENSOR.c: 267:     detectar();
-[e ( _detectar ..  ]
+[; ;ASCENSOR.c: 267:     Lcd_Write_Char(1);
+[e ( _Lcd_Write_Char (1 -> -> 1 `i `uc ]
 "268
-[; ;ASCENSOR.c: 268:     if(METAL==1 || BLANCA==1 || NEGRA==1){
+[; ;ASCENSOR.c: 268:     detectar();
+[e ( _detectar ..  ]
+"269
+[; ;ASCENSOR.c: 269:     if(METAL==1 || BLANCA==1 || NEGRA==1){
 [e $ ! || || == -> _METAL `i -> 1 `i == -> _BLANCA `i -> 1 `i == -> _NEGRA `i -> 1 `i 478  ]
 {
-"269
-[; ;ASCENSOR.c: 269:     dejar();
-[e ( _dejar ..  ]
 "270
-[; ;ASCENSOR.c: 270:      }
+[; ;ASCENSOR.c: 270:     dejar();
+[e ( _dejar ..  ]
+"271
+[; ;ASCENSOR.c: 271:      }
 }
 [e $U 479  ]
-"271
-[; ;ASCENSOR.c: 271:     else {
+"272
+[; ;ASCENSOR.c: 272:     else {
 [e :U 478 ]
 {
-"273
-[; ;ASCENSOR.c: 273:     }
+"274
+[; ;ASCENSOR.c: 274:     }
 }
 [e :U 479 ]
-"274
-[; ;ASCENSOR.c: 274:  };
+"275
+[; ;ASCENSOR.c: 275:  };
 }
 [e :U 470 ]
 [e $U 471  ]
 [e :U 472 ]
-"275
-[; ;ASCENSOR.c: 275:  return;
-[e $UE 469  ]
 "276
-[; ;ASCENSOR.c: 276: }
+[; ;ASCENSOR.c: 276:  return;
+[e $UE 469  ]
+"277
+[; ;ASCENSOR.c: 277: }
 [e :UE 469 ]
 }
 [a 1C 78 69 71 82 65 83 0 ]

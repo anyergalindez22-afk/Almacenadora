@@ -1,4 +1,4 @@
-build/default/production/ASCENSOR.p1:  \
+build/default/debug/ASCENSOR.p1:  \
 ASCENSOR.c  \
 CONFIGURACION.h  \
 lcd.h  \

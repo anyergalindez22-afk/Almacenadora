@@ -10,6 +10,7 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>../EEPROM_RW.X</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

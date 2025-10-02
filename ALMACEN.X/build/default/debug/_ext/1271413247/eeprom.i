@@ -1,4 +1,4 @@
-# 1 "ASCENSOR.c"
+# 1 "../EEPROM_RW.X/eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 285 "<built-in>" 3
@@ -6,48 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "ASCENSOR.c" 2
-# 1 "./CONFIGURACION.h" 1
-# 10 "./CONFIGURACION.h"
-#pragma config PLLDIV = 1
-#pragma config CPUDIV = OSC1_PLL2
-#pragma config USBDIV = 1
-#pragma config FOSC = INTOSCIO_EC
-#pragma config FCMEN = OFF
-#pragma config IESO = OFF
-#pragma config PWRT = OFF
-#pragma config BOR = OFF
-#pragma config BORV = 3
-#pragma config VREGEN = OFF
-#pragma config WDT = OFF
-#pragma config WDTPS = 32768
-#pragma config CCP2MX = OFF
-#pragma config PBADEN = OFF
-#pragma config LPT1OSC = OFF
-#pragma config MCLRE = OFF
-#pragma config STVREN = OFF
-#pragma config LVP = OFF
-#pragma config ICPRT = ON
-#pragma config XINST = OFF
-#pragma config CP0 = OFF
-#pragma config CP1 = OFF
-#pragma config CP2 = OFF
-#pragma config CP3 = OFF
-#pragma config CPB = OFF
-#pragma config CPD = OFF
-#pragma config WRT0 = OFF
-#pragma config WRT1 = OFF
-#pragma config WRT2 = OFF
-#pragma config WRT3 = OFF
-#pragma config WRTC = OFF
-#pragma config WRTB = OFF
-#pragma config WRTD = OFF
-#pragma config EBTR0 = OFF
-#pragma config EBTR1 = OFF
-#pragma config EBTR2 = OFF
-#pragma config EBTR3 = OFF
-#pragma config EBTRB = OFF
-# 2 "ASCENSOR.c" 2
+# 1 "../EEPROM_RW.X/eeprom.c" 2
+# 1 "../EEPROM_RW.X/eeprom.h" 1
 # 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -5947,181 +5907,7 @@ __attribute__((__unsupported__("The " "Write_b_eep" " routine is no longer suppo
 unsigned char __t1rd16on(void);
 unsigned char __t3rd16on(void);
 # 34 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include/xc.h" 2 3
-# 3 "ASCENSOR.c" 2
-# 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/stdio.h" 1 3
-# 24 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/stdio.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 1 3
-# 12 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 3
-typedef void * va_list[1];
-
-
-
-
-typedef void * __isoc_va_list[1];
-# 143 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 3
-typedef __int24 ssize_t;
-# 255 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 3
-typedef long long off_t;
-# 409 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/bits/alltypes.h" 3
-typedef struct _IO_FILE FILE;
-# 25 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/stdio.h" 2 3
-# 52 "C:\\Program Files\\Microchip\\xc8\\v3.00\\pic\\include\\c99/stdio.h" 3
-typedef union _G_fpos64_t {
- char __opaque[16];
- double __align;
-} fpos_t;
-
-extern FILE *const stdin;
-extern FILE *const stdout;
-extern FILE *const stderr;
-
-
-
-
-
-FILE *fopen(const char *restrict, const char *restrict);
-FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
-int fclose(FILE *);
-
-int remove(const char *);
-int rename(const char *, const char *);
-
-int feof(FILE *);
-int ferror(FILE *);
-int fflush(FILE *);
-void clearerr(FILE *);
-
-int fseek(FILE *, long, int);
-long ftell(FILE *);
-void rewind(FILE *);
-
-int fgetpos(FILE *restrict, fpos_t *restrict);
-int fsetpos(FILE *, const fpos_t *);
-
-size_t fread(void *restrict, size_t, size_t, FILE *restrict);
-size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
-
-int fgetc(FILE *);
-int getc(FILE *);
-int getchar(void);
-
-
-
-
-
-int ungetc(int, FILE *);
-int getch(void);
-
-int fputc(int, FILE *);
-int putc(int, FILE *);
-int putchar(int);
-
-
-
-
-
-void putch(char);
-
-char *fgets(char *restrict, int, FILE *restrict);
-
-char *gets(char *);
-
-
-int fputs(const char *restrict, FILE *restrict);
-int puts(const char *);
-
-__attribute__((__format__(__printf__, 1, 2)))
-int printf(const char *restrict, ...);
-__attribute__((__format__(__printf__, 2, 3)))
-int fprintf(FILE *restrict, const char *restrict, ...);
-__attribute__((__format__(__printf__, 2, 3)))
-int sprintf(char *restrict, const char *restrict, ...);
-__attribute__((__format__(__printf__, 3, 4)))
-int snprintf(char *restrict, size_t, const char *restrict, ...);
-
-__attribute__((__format__(__printf__, 1, 0)))
-int vprintf(const char *restrict, __isoc_va_list);
-int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__printf__, 2, 0)))
-int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__printf__, 3, 0)))
-int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
-
-__attribute__((__format__(__scanf__, 1, 2)))
-int scanf(const char *restrict, ...);
-__attribute__((__format__(__scanf__, 2, 3)))
-int fscanf(FILE *restrict, const char *restrict, ...);
-__attribute__((__format__(__scanf__, 2, 3)))
-int sscanf(const char *restrict, const char *restrict, ...);
-
-__attribute__((__format__(__scanf__, 1, 0)))
-int vscanf(const char *restrict, __isoc_va_list);
-int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__scanf__, 2, 0)))
-int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
-
-void perror(const char *);
-
-int setvbuf(FILE *restrict, char *restrict, int, size_t);
-void setbuf(FILE *restrict, char *restrict);
-
-char *tmpnam(char *);
-FILE *tmpfile(void);
-
-
-
-
-FILE *fmemopen(void *restrict, size_t, const char *restrict);
-FILE *open_memstream(char **, size_t *);
-FILE *fdopen(int, const char *);
-FILE *popen(const char *, const char *);
-int pclose(FILE *);
-int fileno(FILE *);
-int fseeko(FILE *, off_t, int);
-off_t ftello(FILE *);
-int dprintf(int, const char *restrict, ...);
-int vdprintf(int, const char *restrict, __isoc_va_list);
-void flockfile(FILE *);
-int ftrylockfile(FILE *);
-void funlockfile(FILE *);
-int getc_unlocked(FILE *);
-int getchar_unlocked(void);
-int putc_unlocked(int, FILE *);
-int putchar_unlocked(int);
-ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
-ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
-int renameat(int, const char *, int, const char *);
-char *ctermid(char *);
-
-
-
-
-
-
-
-char *tempnam(const char *, const char *);
-# 4 "ASCENSOR.c" 2
-# 1 "./lcd.h" 1
-# 21 "./lcd.h"
-void Lcd_Port(char a);
-void Lcd_Cmd(char a);
-void Lcd_Clear(void);
-void Lcd_Set_Cursor(char a, char b);
-void Lcd_Init(void);
-void Lcd_Write_Char(char a);
-void Lcd_Write_String(const char *a);
-void Lcd_Shift_Right(void);
-void Lcd_Shift_Left(void);
-void Lcd_Blink(void);
-void Lcd_NoBlink(void);
-
-
-void Lcd_CGRAM_CreateChar(char add, const char* chardata);
-void Lcd_CGRAM_Init(void);
-void Lcd_CGRAM_Close(void);
-# 5 "ASCENSOR.c" 2
-# 1 "./eeprom.h" 1
-
+# 2 "../EEPROM_RW.X/eeprom.h" 2
 
 
 
@@ -6131,249 +5917,38 @@ void Lcd_CGRAM_Close(void);
 void EEPROM_Write(unsigned char dir, unsigned char data);
 unsigned char EEPROM_Read(unsigned char dir);
 void EEPROM_Clear(void);
-# 6 "ASCENSOR.c" 2
-# 33 "ASCENSOR.c"
-const char figura_1[8] = {0x1B, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1B, 0x1F};
-const char figura_2[8] = {0x1B, 0x11, 0x1F, 0x1F, 0x1F, 0x11, 0x1B, 0x00};
-char METAL=0, BLANCA=0, NEGRA=0;
-char Fila1[4];
-char Fila2[4];
-char Fila3[4];
-char f=0, c=0;
+# 2 "../EEPROM_RW.X/eeprom.c" 2
 
-void init_ports(void){
-    ADCON1bits.PCFG=0x0F;
-    TRISB=0XFF;
-    TRISA=0XFF;
-    TRISD=0X00;
-    TRISE=0X00;
-    TRISC=0XFF;
-    TRISCbits.RC0=0;
-    TRISCbits.RC6=0;
-
-    LATA=0X00;
-    LATB=0X00;
-    LATC=0X00;
-    LATD=0X00;
-    LATE=0X00;
-    return;
+void EEPROM_Write(unsigned char dir, unsigned char data)
+{
+    EEADR = dir;
+    EEDATA = data;
+    EECON1bits.EEPGD = 0;
+    EECON1bits.CFGS = 0;
+    EECON1bits.WREN = 1;
+    INTCONbits.GIE = 0;
+    EECON2 = 0x55;
+    EECON2 = 0x0AA;
+    EECON1bits.WR = 1;
+    INTCONbits.GIE = 1;
+    while(!PIR2bits.EEIF);
+    PIR2bits.EEIF = 0;
+    EECON1bits.WREN = 0;
 }
 
-void init_int(void){
-    RCONbits.IPEN= 1;
-    INTCONbits.RBIE=1;
-    INTCONbits.RBIF=0;
-    INTCON2bits.RBIP=0;
-    T0CON = 0B01111000;
-    INTCON = 0B10101000;
-    INTCON2bits.TMR0IP = 1;
-    return;
+unsigned char EEPROM_Read(unsigned char dir)
+{
+    EEADR = dir;
+    EECON1bits.EEPGD = 0;
+    EECON1bits.CFGS = 0;
+    EECON1bits.RD = 1;
+    return EEDATA;
 }
 
-void reposo(void){
- if(PORTAbits.RA1==1){
-  LATDbits.LATD3=1;
-     while(PORTAbits.RA1==1);
-     LATDbits.LATD3=0;
- }
-
-    if(PORTAbits.RA2==1){
-     LATDbits.LATD0=1;
-     while(PORTAbits.RA2==1);
-     LATDbits.LATD0=0;
- }
-    return;
-}
-
-void detectar(void){
- if(PORTCbits.RC1==0 && PORTCbits.RC2==1){
-  METAL=1;
-  TMR0L= 250;
-        T0CONbits.TMR0ON = 1;
- }
- else if(PORTCbits.RC1==1 && PORTCbits.RC2==0){
-  BLANCA=1;
-        TMR0L= 233;
-        T0CONbits.TMR0ON = 1;
- }
- else if(PORTCbits.RC1==0 && PORTCbits.RC2==0){
-  NEGRA=1;
-        TMR0L= 222;
-        T0CONbits.TMR0ON = 1;
- }
-    return;
-}
-
-void Actualizar_Matriz(){
-    Lcd_Set_Cursor(1,12);
-    for(char i=0;i<=3;i++){
-        if (Fila1[i]==0){
-            Lcd_Write_Char(0);
-        }
-        else
-        {
-            Lcd_Write_Char(1);
-        }
+void EEPROM_Clear(void)
+{
+    for(int i=0; i<256; i++)
+    {
+        EEPROM_Write(i, 0xFF);
     }
-    Lcd_Set_Cursor(2,12);
-    for(char i=0;i<=3;i++){
-        if (Fila2[i]==0){
-            Lcd_Write_Char(0);
-        }
-        else
-        {
-            Lcd_Write_Char(1);
-        }
-    }
-    Lcd_Set_Cursor(3,12);
-    for(char i=0;i<=3;i++){
-        if (Fila3[i]==0){
-            Lcd_Write_Char(0);
-        }
-        else
-        {
-            Lcd_Write_Char(1);
-        }
-    }
-    Lcd_Set_Cursor(1,12);
-    f=1;
-    c=12;
-}
-
-void guardar(void){
-    for (char i=0; i<=3; i++){
-        EEPROM_Write(i,Fila1[i]);
-    }
-    for (char i=0; i<=3; i++){
-        EEPROM_Write(i+4,Fila2[i]);
-    }
-    for (char i=0; i<=3; i++){
-        EEPROM_Write(i+8,Fila3[i]);
-    }
-}
-
-void estado(void){
-    char g;
-    for (char i=0; i<=3; i++){
-        Fila1[i]=EEPROM_Read(i);
-    }
-    for (char i=0; i<=3; i++){
-        Fila2[i]=EEPROM_Read(i+4);
-    }
-    for (char i=0; i<=3; i++){
-        Fila3[i]=EEPROM_Read(i+8);
-    }
-}
-
-void __attribute__((picinterrupt(("low_priority")))) LowISR(void){
-    Lcd_Blink();
-    if (INTCONbits.RBIF){
-       volatile unsigned char dummy = PORTB;
-       INTCONbits.RBIF=0;
-
-       if (PORTBbits.RB6==1 && f>1){
-           f--;
-       }
-       if (PORTBbits.RB7==1 && f<3){
-           f++;
-       }
-       if (PORTBbits.RB4==1 && c>12){
-          c--;
-       }
-       if (PORTBbits.RB5==1 && c< 15){
-           c++;
-       }
-
-       Lcd_Set_Cursor(f,c);
-    }
-}
-
-void __attribute__((picinterrupt(("high_priority")))) Stop(void){
-INTCONbits.GIEH = 0;
-T0CONbits.TMR0ON = 0;
-LATDbits.LATD2=0;
-LATDbits.LATD3=0;
-INTCONbits.TMR0IF = 0;
-INTCONbits.GIEH = 1;
-}
-
-void Modificar(){
-    if (PORTBbits.RB3==1){
-        Lcd_Write_Char(1);
-
-        c++;
-        while(PORTBbits.RB3==1);
-    }
-    if (PORTBbits.RB2==1){
-        Lcd_Write_Char(0);
-
-        c++;
-         while(PORTBbits.RB2==1);
-    }
-    Lcd_NoBlink();
-
-}
-
-void dejar(){
-
-    LATDbits.LATD1=1;
-    LATDbits.LATD1=0;
-
-    LATDbits.LATD2= 1;
-    while(LATDbits.LATD2==1);
-    _delay((unsigned long)((500)*(4000000/4000.0)));
-    LATCbits.LC0=1;
-    _delay((unsigned long)((250)*(4000000/4000.0)));
-    TMR0L= 253;
-    T0CONbits.TMR0ON = 1;
-    LATDbits.LATD3=1;
-    while(LATDbits.LATD3==1);
-    _delay((unsigned long)((500)*(4000000/4000.0)));
-    LATCbits.LC0=0;
-    _delay((unsigned long)((200)*(4000000/4000.0)));
-    return;
-}
-
-void main(void) {
-    init_ports();
-    init_int();
-    Lcd_Init();
-
-    Lcd_CGRAM_Init();
-    Lcd_CGRAM_CreateChar(0,figura_1);
-    Lcd_CGRAM_CreateChar(1,figura_2);
-    Lcd_CGRAM_Close();
-
-    estado();
-    Lcd_Clear();
-    Lcd_Set_Cursor(1,1);
-    Lcd_Write_String("NEGRAS");
-    Lcd_Set_Cursor(2,1);
-    Lcd_Write_String("BLANCAS");
-    Lcd_Set_Cursor(3,1);
-    Lcd_Write_String("METAL");
-    _delay((unsigned long)((200)*(4000000/4000.0)));
-
-    while(1){
-        Actualizar_Matriz();
-        INTCONbits.GIEL=1;
-    while(PORTBbits.RB0==0){
-  if(PORTAbits.RA2==1 || PORTAbits.RA1==1){
-      reposo();
-  }
-        if( PORTBbits.RB2==1 || PORTBbits.RB3==1){
-            Modificar();
-        }
-    };
-    Lcd_Set_Cursor(2,1);
-    Lcd_Write_Char(1);
-    detectar();
-    if(METAL==1 || BLANCA==1 || NEGRA==1){
-    dejar();
-     }
-    else {
-
-    }
- };
- return;
 }

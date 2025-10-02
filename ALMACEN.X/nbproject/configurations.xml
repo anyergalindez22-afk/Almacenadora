@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>CONFIGURACION.h</itemPath>
       <itemPath>lcd.h</itemPath>
+      <itemPath>../EEPROM_RW.X/eeprom.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -21,10 +22,12 @@
                    projectFiles="true">
       <itemPath>ASCENSOR.c</itemPath>
       <itemPath>lcd.c</itemPath>
+      <itemPath>../EEPROM_RW.X/eeprom.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
+    <Elem>../EEPROM_RW.X</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

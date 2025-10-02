@@ -2,6 +2,7 @@
 #include <xc.h>
 #include <stdio.h>
 #include "lcd.h"
+#include "eeprom.h"
 #define _XTAL_FREQ 4000000
 
 #define IN PORTBbits.RB0 //Originalemnte PA Y PP VAN EN UN MISMO PIN    
@@ -32,11 +33,10 @@
 const char figura_1[8] = {0x1B, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1B, 0x1F};
 const char figura_2[8] = {0x1B, 0x11, 0x1F, 0x1F, 0x1F, 0x11, 0x1B, 0x00};
 char METAL=0, BLANCA=0, NEGRA=0;
-int Fila1[4];
-int Fila2[4];
-int Fila3[4];
+char Fila1[4];
+char Fila2[4];
+char Fila3[4];
 char f=0, c=0;
-
 
 void init_ports(void){
     ADCON1bits.PCFG=0x0F;// salida Digital
@@ -57,7 +57,6 @@ void init_ports(void){
 }
 
 void init_int(void){
-    
     RCONbits.IPEN= 1;                //HABILITAS LAS PRIORIDADES
     INTCONbits.RBIE=1;               //HABILITAMOS INTERRUPCIONES DE RB
     INTCONbits.RBIF=0;               //BAJAMOS LA BANDERA
@@ -65,7 +64,6 @@ void init_int(void){
     T0CON = 0B01111000;              //TMR0 CONFIGURADO COMO CONTADOR A PARTIR DE LOS PULSOS DESCENDENTES EN EL PIN TOCKI
     INTCON = 0B10101000;             //CONFIGURA LAS INTERRUPCIONES PARA PODER INTERRUMPIR POR OVERFLOW DEL TMR0 O CAMBIO EN EL PORTB
     INTCON2bits.TMR0IP = 1;          //PRIORIDAD ALTA PARA TMR0
-    
     return;
 }
 
@@ -102,9 +100,10 @@ void detectar(void){                //DESBORDE EN 256 DEL CONTADOR, ALTURA INICI
 	}
     return;
 }
+
 void Actualizar_Matriz(){
     Lcd_Set_Cursor(1,12);
-    for(int i=0;i<=3;i++){
+    for(char i=0;i<=3;i++){
         if (Fila1[i]==0){
             Lcd_Write_Char(0);
         }
@@ -114,7 +113,7 @@ void Actualizar_Matriz(){
         }
     }
     Lcd_Set_Cursor(2,12);
-    for(int i=0;i<=3;i++){
+    for(char i=0;i<=3;i++){
         if (Fila2[i]==0){
             Lcd_Write_Char(0);
         }
@@ -124,7 +123,7 @@ void Actualizar_Matriz(){
         }
     }
     Lcd_Set_Cursor(3,12);
-    for(int i=0;i<=3;i++){
+    for(char i=0;i<=3;i++){
         if (Fila3[i]==0){
             Lcd_Write_Char(0);
         }
@@ -138,14 +137,29 @@ void Actualizar_Matriz(){
     c=12;
 }
 
+void guardar(void){
+    for (char i=0; i<=3; i++){
+        EEPROM_Write(i,Fila1[i]);
+    }
+    for (char i=0; i<=3; i++){
+        EEPROM_Write(i+4,Fila2[i]);
+    }
+    for (char i=0; i<=3; i++){
+        EEPROM_Write(i+8,Fila3[i]);
+    }
+}
 
-void __interrupt(high_priority) Stop(void){
-INTCONbits.GIEH = 0;
-T0CONbits.TMR0ON = 0;
-SUBIR=0;
-BAJAR=0;
-INTCONbits.TMR0IF = 0;
-INTCONbits.GIEH = 1;
+void estado(void){
+    char g;
+    for (char i=0; i<=3; i++){
+        Fila1[i]=EEPROM_Read(i);
+    }
+    for (char i=0; i<=3; i++){
+        Fila2[i]=EEPROM_Read(i+4);
+    }
+    for (char i=0; i<=3; i++){
+        Fila3[i]=EEPROM_Read(i+8);
+    }
 }
 
 void __interrupt(low_priority) LowISR(void){
@@ -170,6 +184,16 @@ void __interrupt(low_priority) LowISR(void){
        Lcd_Set_Cursor(f,c);
     }
 }
+
+void __interrupt(high_priority) Stop(void){
+INTCONbits.GIEH = 0;
+T0CONbits.TMR0ON = 0;
+SUBIR=0;
+BAJAR=0;
+INTCONbits.TMR0IF = 0;
+INTCONbits.GIEH = 1;
+}
+
 void Modificar(){
     if (LLENAR==1){
         Lcd_Write_Char(1);
@@ -184,7 +208,9 @@ void Modificar(){
          while(CLEAR==1);
     }
     Lcd_NoBlink();
+    
 }
+
 void dejar(){ //PRIMERO MOVER A LA DERECHA Y LUEGO HACIA ARRIBA, PARA MOVER A LA DERECHA ES NECESARIO CONSULTAR LA MEMORIA
 	//METER PARA DESPLAZAR A LA DERECHA EN BASE A LA INFORMACION EN LA MEMORIA
     DERECHA=1;
@@ -200,6 +226,7 @@ void dejar(){ //PRIMERO MOVER A LA DERECHA Y LUEGO HACIA ARRIBA, PARA MOVER A LA
     BAJAR=1;
     while(BAJAR==1);               //ESPERA A QUE HAYA BAJADO PARA CONTINUAR
     __delay_ms(500);
+    guardar();
     EXT=0;
     __delay_ms(200);
     return;
@@ -209,17 +236,20 @@ void main(void) {
     init_ports();
     init_int();
     Lcd_Init();
+    
     Lcd_CGRAM_Init();
     Lcd_CGRAM_CreateChar(0,figura_1);   //GUARDAMOS EL CARACTER ESPECIAL PARA MOSTRAR VACIO
     Lcd_CGRAM_CreateChar(1,figura_2);   //GUARDAMOS EL CARACTER ESPECIAL PARA MOSTRAR LLENO
     Lcd_CGRAM_Close();
+    
+    estado();
     Lcd_Clear();
     Lcd_Set_Cursor(1,1);
-    Lcd_Write_String("Negras");
+    Lcd_Write_String("NEGRAS");
     Lcd_Set_Cursor(2,1);
-    Lcd_Write_String("Blancas");
+    Lcd_Write_String("BLANCAS");
     Lcd_Set_Cursor(3,1);
-    Lcd_Write_String("Metal");
+    Lcd_Write_String("METAL");
     __delay_ms(200);
     
     while(1){

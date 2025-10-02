@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ASCENSOR.c lcd.c
+SOURCEFILES_QUOTED_IF_SPACED=ASCENSOR.c lcd.c ../EEPROM_RW.X/eeprom.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ASCENSOR.p1 ${OBJECTDIR}/lcd.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/ASCENSOR.p1.d ${OBJECTDIR}/lcd.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ASCENSOR.p1 ${OBJECTDIR}/lcd.p1 ${OBJECTDIR}/_ext/1271413247/eeprom.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/ASCENSOR.p1.d ${OBJECTDIR}/lcd.p1.d ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ASCENSOR.p1 ${OBJECTDIR}/lcd.p1
+OBJECTFILES=${OBJECTDIR}/ASCENSOR.p1 ${OBJECTDIR}/lcd.p1 ${OBJECTDIR}/_ext/1271413247/eeprom.p1
 
 # Source Files
-SOURCEFILES=ASCENSOR.c lcd.c
+SOURCEFILES=ASCENSOR.c lcd.c ../EEPROM_RW.X/eeprom.c
 
 
 
@@ -104,6 +104,14 @@ ${OBJECTDIR}/lcd.p1: lcd.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/lcd.d ${OBJECTDIR}/lcd.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/_ext/1271413247/eeprom.p1: ../EEPROM_RW.X/eeprom.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/_ext/1271413247" 
+	@${RM} ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1271413247/eeprom.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/_ext/1271413247/eeprom.p1 ../EEPROM_RW.X/eeprom.c 
+	@-${MV} ${OBJECTDIR}/_ext/1271413247/eeprom.d ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/ASCENSOR.p1: ASCENSOR.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
@@ -120,6 +128,14 @@ ${OBJECTDIR}/lcd.p1: lcd.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/lcd.p1 lcd.c 
 	@-${MV} ${OBJECTDIR}/lcd.d ${OBJECTDIR}/lcd.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1271413247/eeprom.p1: ../EEPROM_RW.X/eeprom.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/_ext/1271413247" 
+	@${RM} ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1271413247/eeprom.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/_ext/1271413247/eeprom.p1 ../EEPROM_RW.X/eeprom.c 
+	@-${MV} ${OBJECTDIR}/_ext/1271413247/eeprom.d ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1271413247/eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 
