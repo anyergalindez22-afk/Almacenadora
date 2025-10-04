@@ -33,10 +33,12 @@
 const char figura_1[8] = {0x1B, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1B, 0x1F};
 const char figura_2[8] = {0x1B, 0x11, 0x1F, 0x1F, 0x1F, 0x11, 0x1B, 0x00};
 char METAL=0, BLANCA=0, NEGRA=0;
-char Fila1[4];
-char Fila2[4];
-char Fila3[4];
+int SALTO=0;
+char Fila1[3];
+char Fila2[3];
+char Fila3[3];
 char f=0, c=0;
+int Delay=0;
 
 void init_ports(void){
     ADCON1bits.PCFG=0x0F;// salida Digital
@@ -73,7 +75,7 @@ void reposo(void){
     	while(FCY1==1);
     	BAJAR=0;	
 	}	
-	
+    
     if(FCX1==1){
     	IZQUIERDA=1;
     	while(FCX1==1);
@@ -90,7 +92,7 @@ void detectar(void){                //DESBORDE EN 256 DEL CONTADOR, ALTURA INICI
 	}
 	else if(PZA0==1 && PZA1==0){
 		BLANCA=1;
-        TMR0L= 232;                 //PRECARGA EL CONTADOR PARA DESBORDARSE EN 21+2 PULSOS
+        TMR0L= 235;                 //PRECARGA EL CONTADOR PARA DESBORDARSE EN 21+2 PULSOS
         T0CONbits.TMR0ON = 1;
 	}
 	else if(PZA0==0 && PZA1==0){
@@ -104,9 +106,9 @@ void detectar(void){                //DESBORDE EN 256 DEL CONTADOR, ALTURA INICI
 }
 
 void Actualizar_Matriz(){
-    Lcd_Set_Cursor(1,12);
+    Lcd_Set_Cursor(1,13);
     char acum=0;
-    for(char i=0;i<=3;i++){
+    for(char i=0;i<=2;i++){
         if (Fila3[i]==0){
             Lcd_Write_Char(0);
         }
@@ -116,8 +118,8 @@ void Actualizar_Matriz(){
             acum++;
         }
     }
-    Lcd_Set_Cursor(2,12);
-    for(char i=0;i<=3;i++){
+    Lcd_Set_Cursor(2,13);
+    for(char i=0;i<=2;i++){
         if (Fila2[i]==0){
             Lcd_Write_Char(0);
         }
@@ -127,8 +129,8 @@ void Actualizar_Matriz(){
             acum++;
         }
     }
-    Lcd_Set_Cursor(3,12);
-    for(char i=0;i<=3;i++){
+    Lcd_Set_Cursor(3,13);
+    for(char i=0;i<=2;i++){
         if (Fila1[i]==0){
             Lcd_Write_Char(0);
         }
@@ -138,51 +140,47 @@ void Actualizar_Matriz(){
             acum++;
         }
     }
-    Lcd_Set_Cursor(1,12);
+    Lcd_Set_Cursor(1,13);
     f=1;
-    c=12;
-    //if(acum==12){
-    //    OUT=1;
-    //}
-    //else{
-    //    OUT=0;
-    //}
-    //return;
+    c=13;
+    if(acum==9){
+        OUT=1;
+    }
+    return;
 }
 
 void Clear(void){
-    char cl=0;
-    for (char i=0; i<=9; i++){
-        EEPROM_Write(i,cl);
+    for (char i=0; i<10; i++){
+        EEPROM_Write(i,0);
     }
 }
 
 void guardar(void){
     char media;
-    for (char i=0; i<=3; i++){
+    for (char i=0; i<=2; i++){
         media= Fila1[i];
         EEPROM_Write(i,media);
     }
-    for (char i=0; i<=3; i++){
+    for (char i=0; i<=2; i++){
         media= Fila2[i];
-        EEPROM_Write(i+4,media);
+        EEPROM_Write(i+3,media);
     }
-    for (char i=0; i<=3; i++){
+    for (char i=0; i<=2; i++){
         media= Fila3[i];
-        EEPROM_Write(i+8,media);
+        EEPROM_Write(i+6,media);
     }
 }
 
 void estado(void){
     char g;
-    for (char i=0; i<=3; i++){
+    for (char i=0; i<=2; i++){
         Fila1[i]=EEPROM_Read(i);
     }
-    for (char i=0; i<=3; i++){
-        Fila2[i]=EEPROM_Read(i+4);
+    for (char i=0; i<=2; i++){
+        Fila2[i]=EEPROM_Read(i+3);
     }
-    for (char i=0; i<=3; i++){
-        Fila3[i]=EEPROM_Read(i+8);
+    for (char i=0; i<=2; i++){
+        Fila3[i]=EEPROM_Read(i+6);
     }
 }
 
@@ -198,7 +196,7 @@ void __interrupt(low_priority) LowISR(void){
        if (ABAJO==1 && f<3){
            f++;
        }     
-       if (IZQ==1 && c>12){
+       if (IZQ==1 && c>13){
           c--; 
        }
        if (DER==1 && c< 15){
@@ -218,77 +216,174 @@ INTCONbits.TMR0IF = 0;
 INTCONbits.GIEH = 1;
 }
 
+void mostrar_variable(int x){
+    char buffer[20];
+     sprintf(buffer,"%d",x);
+    Lcd_Write_String(buffer);
+    return;
+}
+void probar_1sg(void){
+    if(CLEAR==0){
+        return;
+    }
+    __delay_ms(100);
+    if(CLEAR==0){
+        return;
+    }
+    __delay_ms(100);
+    if(CLEAR==0){
+        return;
+    }
+    Clear();
+    estado();
+    Actualizar_Matriz();
+    
+}
+void MOD (char F,char C,char x){
+    C-=12;
+    if(F==1){
+        Fila1[C]=x;
+        
+    }
+    if(F==2){
+        Fila1[C]=x;
+    }
+    if(F==3){
+        Fila1[C]=x;
+    }
+    
+}
 void Modificar(){
     if (LLENAR==1){
+        MOD(f,c,1);
         Lcd_Write_Char(1);
-        //AQUI DEBERIA MODIFICAR LA MEMORIA, Y EL VECTOR DONDE SE GUARDO
-        c++;
         while(LLENAR==1);
     }
     if  (CLEAR==1){
+        probar_1sg();
+         MOD(f,c,0);
         Lcd_Write_Char(0);
-        //AQUI DEBERIA MODIFICAR LA MEMORIA, Y EL VECTOR DONDE SE GUARDO
-        c++;
          while(CLEAR==1);
     }
+    guardar();
+    Lcd_Set_Cursor(1,13);
+    f=1;
+    c=13;
     Lcd_NoBlink();
+    Actualizar_Matriz();
     
 }
 
+void calibrar(){
+    if (Fila1[0]==0 || Fila2[0]==0 || Fila3[0]==0){
+    SALTO=19;
+    if(METAL !=0 && Fila1[0]==0){
+        Fila1[0]=1;
+        return;
+        }
+    if(BLANCA !=0 && Fila2[0]==0){
+        Fila2[0]=1;
+       // SALTO++;
+        return;
+        }
+    if(NEGRA !=0 && Fila3[0]==0){
+        Fila3[0]=1;
+       // SALTO--;
+        return;
+        }
+    }
+    if (Fila1[1]==0 || Fila2[1]==0 || Fila3[1]==0){
+    SALTO=37;
+    if(METAL !=0 && Fila1[1]==0){
+        Fila1[1]=1;
+        return;
+        }
+    if(BLANCA !=0 && Fila2[1]==0){
+        Fila2[1]=1;
+        //SALTO++;
+        return;
+        }
+    if(NEGRA !=0 && Fila3[1]==0){
+        Fila3[1]=1; 
+        //SALTO++;
+        return;
+        }
+    }
+    if (Fila1[2]==0 || Fila2[2]==0 || Fila3[2]==0){
+    SALTO=55;
+    if(METAL !=0 && Fila1[2]==0){
+        Fila1[2]=1;
+        return;
+        }
+    if(BLANCA !=0 && Fila2[2]==0){
+        Fila2[2]=1;
+       // SALTO--;
+        return;
+        }
+    if(NEGRA !=0 && Fila3[2]==0){
+        Fila3[2]=1;
+       // SALTO-=2;
+        return;
+        }
+    }
+}
+void full(void){
+    int suma=0;
+    for(int i=0;i<=2;i++){
+        suma+=Fila1[i];
+        
+    }
+    if(suma==3){
+        METAL=0;
+    }
+      suma=0;
+    for(int i=0;i<=2;i++){
+        suma+=Fila2[i];
+        
+    }
+    if(suma==3){
+        BLANCA=0;
+    }
+       suma=0;
+    for(int i=0;i<=2;i++){
+        suma+=Fila3[i];
+        
+    }
+    if(suma==3){
+        NEGRA=0;
+    }
+}
+
 void dejar(){ //PRIMERO MOVER A LA DERECHA Y LUEGO HACIA ARRIBA, PARA MOVER A LA DERECHA ES NECESARIO CONSULTAR LA MEMORIA
-    char acum=0, SALTO;
+    int acum=0;
+    Lcd_Set_Cursor(4,1);
+    Lcd_Write_String("            ");
+    calibrar();
     
-    if(METAL!=0){
-        for(char i=0;i<=3;i++){
-            if(Fila1[i]==0){
-                Fila1[i]=1;
-                SALTO= (i+1)*9;
-                break;
-            }
-        }
-    }
-    else if(BLANCA!=0){
-        for(char i=0;i<=3;i++){
-            if(Fila2[i]==0){
-                Fila2[i]=1;
-                SALTO= (i+1)*9;
-                break;
-            }
-        }
-    }
-    else if(NEGRA!=0){
-        for(char i=0;i<=3;i++){
-            if(Fila3[i]==0){
-                Fila3[i]=1;
-                SALTO= (i+1)*9;
-               
-                break;
-            }
-        }
-    }
-    
+    Lcd_Set_Cursor(4,12);
+    Lcd_Write_String("X=");
     DERECHA=1;
     while(acum!=SALTO){
         if(EJEX==1){
             acum++;
+            while(EJEX==1);
         }
-        __delay_ms(20);            //PARA ASEGURAR QUE acum SOLO SUME 1 CADA VEZ QUE SE ACTIVE EL SENSOR DE EJEX
-        while(EJEX==0);
-    }
+            }
+    mostrar_variable(acum);
     DERECHA=0;
     __delay_ms(200);
     
     SUBIR= 1;
     while(SUBIR==1);               //ESPERA A QUE HAYA SUBIDO PARA CONTINUAR
-    __delay_ms(500);
+    __delay_ms(250);
     EXT=1;
     while(FCZ2==1);
     __delay_ms(250);
-    TMR0L= 253;                    //PRECARGA EL CONTADOR PARA DESBORDARSE EN 3 PULSOS 
+    TMR0L= 251;                    //PRECARGA EL CONTADOR PARA DESBORDARSE EN 3 PULSOS 
     T0CONbits.TMR0ON = 1;
     BAJAR=1;
     while(BAJAR==1);               //ESPERA A QUE HAYA BAJADO PARA CONTINUAR
-    __delay_ms(500);
+    __delay_ms(250);
     EXT=0;
     while(FCZ1==1);
     __delay_ms(200);
@@ -307,7 +402,7 @@ void main(void) {
     Lcd_CGRAM_CreateChar(1,figura_2);   //GUARDAMOS EL CARACTER ESPECIAL PARA MOSTRAR LLENO
     Lcd_CGRAM_Close();
     
-    //estado();
+    estado();
     Lcd_Clear();
     Lcd_Set_Cursor(1,1);
     Lcd_Write_String("NEGRAS");
@@ -329,9 +424,8 @@ void main(void) {
             Modificar();
         };
     };	
-    Lcd_Set_Cursor(4,1);
-    Lcd_Write_String("Hola");
-    detectar();	  			                  //SE DETECTA LA PIEZA EN BASE A COMO COLOQUEMOS LOS SWITCHES PZA0 Y PZA1}
+    detectar();	  	//SE DETECTA LA PIEZA EN BASE A COMO COLOQUEMOS LOS SWITCHES PZA0 Y PZA1}
+    full();
     if((METAL==1 || BLANCA==1 || NEGRA==1)){  //REALMENTE ESTE IF SE PUEDE OBVIAR DE ALGUNA FORMA PROGRAMANDO MEJOR
     dejar();                                    //SE DEJA LA PIEZA
     guardar();                                //SE GUARDA EN LA MEMORIA                   

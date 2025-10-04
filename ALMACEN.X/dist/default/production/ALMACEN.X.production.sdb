@@ -7,28 +7,52 @@
 [v _EEPROM_Write EEPROM_Write `(v  1 e 1 0 ]
 "20
 [v _EEPROM_Read EEPROM_Read `(uc  1 e 1 0 ]
-"41 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+"43 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
 [v _init_ports init_ports `(v  1 e 1 0 ]
-"59
+"61
 [v _init_int init_int `(v  1 e 1 0 ]
-"70
+"72
 [v _reposo reposo `(v  1 e 1 0 ]
-"85
+"87
 [v _detectar detectar `(v  1 e 1 0 ]
-"106
+"108
 [v _Actualizar_Matriz Actualizar_Matriz `(v  1 e 1 0 ]
-"160
+"152
+[v _Clear Clear `(v  1 e 1 0 ]
+"158
 [v _guardar guardar `(v  1 e 1 0 ]
-"189
+"174
+[v _estado estado `(v  1 e 1 0 ]
+"187
 [v _LowISR LowISR `IIL(v  1 e 1 0 ]
-"212
+"210
 [v _Stop Stop `IIH(v  1 e 1 0 ]
-"221
+"219
+[v _mostrar_variable mostrar_variable `(v  1 e 1 0 ]
+"225
+[v _probar_1sg probar_1sg `(v  1 e 1 0 ]
+"242
+[v _MOD MOD `(v  1 e 1 0 ]
+"256
 [v _Modificar Modificar `(v  1 e 1 0 ]
-"238
+"277
+[v _calibrar calibrar `(v  1 e 1 0 ]
+"330
+[v _full full `(v  1 e 1 0 ]
+"357
 [v _dejar dejar `(v  1 e 1 0 ]
-"301
+"396
 [v _main main `(v  1 e 1 0 ]
+"1 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"1177 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\doprnt.c
+[v _vfpfcnvrt vfpfcnvrt `(v  1 s 1 vfpfcnvrt ]
+"1817
+[v _vfprintf vfprintf `(i  1 e 2 0 ]
 "4 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\fleq.c
 [v ___fleq __fleq `(b  1 e 0 0 ]
 "62 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\float.c
@@ -41,6 +65,14 @@
 [v ___ftmul __ftmul `(f  1 e 4 0 ]
 "19 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\nf_fputc.c
+[v _fputc fputc `(i  1 e 2 0 ]
+"8 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\nf_fputs.c
+[v _fputs fputs `(i  1 e 2 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\nf_sprintf.c
+[v _sprintf sprintf `(i  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\putch.c
+[v _putch putch `(v  1 e 1 0 ]
 "10 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "245
@@ -89,12 +121,14 @@
 [v _BLANCA BLANCA `uc  1 e 1 0 ]
 [v _NEGRA NEGRA `uc  1 e 1 0 ]
 "36
-[v _Fila1 Fila1 `[4]uc  1 e 4 0 ]
+[v _SALTO SALTO `i  1 e 2 0 ]
 "37
-[v _Fila2 Fila2 `[4]uc  1 e 4 0 ]
+[v _Fila1 Fila1 `[3]uc  1 e 3 0 ]
 "38
-[v _Fila3 Fila3 `[4]uc  1 e 4 0 ]
+[v _Fila2 Fila2 `[3]uc  1 e 3 0 ]
 "39
+[v _Fila3 Fila3 `[3]uc  1 e 3 0 ]
+"40
 [v _f f `uc  1 e 1 0 ]
 [v _c c `uc  1 e 1 0 ]
 [s S269 . 1 `uc 1 RA0 1 0 :1:0 
@@ -191,7 +225,7 @@
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
 "3183
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
-[s S551 . 1 `uc 1 LATC0 1 0 :1:0 
+[s S557 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
@@ -199,15 +233,15 @@
 `uc 1 LATC7 1 0 :1:7 
 ]
 "3206
-[s S558 . 1 `uc 1 LC0 1 0 :1:0 
+[s S564 . 1 `uc 1 LC0 1 0 :1:0 
 `uc 1 LC1 1 0 :1:1 
 `uc 1 LC2 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
 `uc 1 LC6 1 0 :1:6 
 `uc 1 LC7 1 0 :1:7 
 ]
-[u S565 . 1 `S551 1 . 1 0 `S558 1 . 1 0 ]
-[v _LATCbits LATCbits `VES565  1 e 1 @3979 ]
+[u S571 . 1 `S557 1 . 1 0 `S564 1 . 1 0 ]
+[v _LATCbits LATCbits `VES571  1 e 1 @3979 ]
 "3261
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
 [s S330 . 1 `uc 1 LATD0 1 0 :1:0 
@@ -233,17 +267,17 @@
 [v _LATDbits LATDbits `VES348  1 e 1 @3980 ]
 "3373
 [v _LATE LATE `VEuc  1 e 1 @3981 ]
-[s S774 . 1 `uc 1 LATE0 1 0 :1:0 
+[s S800 . 1 `uc 1 LATE0 1 0 :1:0 
 `uc 1 LATE1 1 0 :1:1 
 `uc 1 LATE2 1 0 :1:2 
 ]
 "3390
-[s S778 . 1 `uc 1 LE0 1 0 :1:0 
+[s S804 . 1 `uc 1 LE0 1 0 :1:0 
 `uc 1 LE1 1 0 :1:1 
 `uc 1 LE2 1 0 :1:2 
 ]
-[u S782 . 1 `S774 1 . 1 0 `S778 1 . 1 0 ]
-[v _LATEbits LATEbits `VES782  1 e 1 @3981 ]
+[u S808 . 1 `S800 1 . 1 0 `S804 1 . 1 0 ]
+[v _LATEbits LATEbits `VES808  1 e 1 @3981 ]
 "3425
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 "3623
@@ -269,7 +303,7 @@
 [v _TRISCbits TRISCbits `VES78  1 e 1 @3988 ]
 "3999
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
-[s S796 . 1 `uc 1 TRISD0 1 0 :1:0 
+[s S822 . 1 `uc 1 TRISD0 1 0 :1:0 
 `uc 1 TRISD1 1 0 :1:1 
 `uc 1 TRISD2 1 0 :1:2 
 `uc 1 TRISD3 1 0 :1:3 
@@ -279,7 +313,7 @@
 `uc 1 TRISD7 1 0 :1:7 
 ]
 "4031
-[s S805 . 1 `uc 1 RD0 1 0 :1:0 
+[s S831 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -288,11 +322,11 @@
 `uc 1 RD6 1 0 :1:6 
 `uc 1 RD7 1 0 :1:7 
 ]
-[u S814 . 1 `S796 1 . 1 0 `S805 1 . 1 0 ]
-[v _TRISDbits TRISDbits `VES814  1 e 1 @3989 ]
+[u S840 . 1 `S822 1 . 1 0 `S831 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES840  1 e 1 @3989 ]
 "4221
 [v _TRISE TRISE `VEuc  1 e 1 @3990 ]
-[s S951 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[s S977 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -302,12 +336,12 @@
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "4726
-[s S960 . 1 `uc 1 . 1 0 :2:0 
+[s S986 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S963 . 1 `S951 1 . 1 0 `S960 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES963  1 e 1 @4001 ]
-[s S895 . 1 `uc 1 RD 1 0 :1:0 
+[u S989 . 1 `S977 1 . 1 0 `S986 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES989  1 e 1 @4001 ]
+[s S921 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -317,11 +351,11 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "4868
-[s S904 . 1 `uc 1 . 1 0 :6:0 
+[s S930 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 EEFS 1 0 :1:6 
 ]
-[u S907 . 1 `S895 1 . 1 0 `S904 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES907  1 e 1 @4006 ]
+[u S933 . 1 `S921 1 . 1 0 `S930 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES933  1 e 1 @4006 ]
 "4913
 [v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
 "4920
@@ -448,38 +482,246 @@
 ]
 [u S201 . 1 `S179 1 . 1 0 `S188 1 . 1 0 `S197 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES201  1 e 1 @4082 ]
-"301 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+"153 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\doprnt.c
+[v _prec prec `i  1 s 2 prec ]
+[v _width width `i  1 s 2 width ]
+"154
+[v _flags flags `uc  1 s 1 flags ]
+"185
+[v _dbuf dbuf `[32]uc  1 s 32 dbuf ]
+"396 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
 [v _main main `(v  1 e 1 0 ]
 {
-"341
+"435
 } 0
-"70
+"72
 [v _reposo reposo `(v  1 e 1 0 ]
 {
-"83
+"85
 } 0
-"41
+"43
 [v _init_ports init_ports `(v  1 e 1 0 ]
 {
-"57
-} 0
 "59
+} 0
+"61
 [v _init_int init_int `(v  1 e 1 0 ]
 {
-"68
+"70
 } 0
-"160
+"330
+[v _full full `(v  1 e 1 0 ]
+{
+"348
+[v full@i_749 i `i  1 a 2 17 ]
+"340
+[v full@i_748 i `i  1 a 2 15 ]
+"332
+[v full@i i `i  1 a 2 13 ]
+"331
+[v full@suma suma `i  1 a 2 19 ]
+"355
+} 0
+"87
+[v _detectar detectar `(v  1 e 1 0 ]
+{
+"106
+} 0
+"357
+[v _dejar dejar `(v  1 e 1 0 ]
+{
+"358
+[v dejar@acum acum `i  1 a 2 57 ]
+"394
+} 0
+"219
+[v _mostrar_variable mostrar_variable `(v  1 e 1 0 ]
+{
+"220
+[v mostrar_variable@buffer buffer `[20]uc  1 a 20 0 ]
+"219
+[v mostrar_variable@x x `i  1 p 2 53 ]
+"224
+} 0
+"9 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\nf_sprintf.c
+[v _sprintf sprintf `(i  1 e 2 0 ]
+{
+[u S1473 . 2 `*.30uc 1 buffer 1 0 `*.39Cuc 1 source 2 0 ]
+"13
+[s S1476 _IO_FILE 11 `S1473 1 . 2 0 `i 1 count 2 2 `[3]uc 1 ungetbuf 3 4 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
+[v sprintf@f f `S1476  1 a 11 42 ]
+"12
+[v sprintf@ap ap `[1]*.30v  1 a 1 41 ]
+"9
+[v sprintf@s s `*.30uc  1 p 1 37 ]
+[v sprintf@fmt fmt `*.31Cuc  1 p 1 38 ]
+"23
+} 0
+"1817 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\doprnt.c
+[v _vfprintf vfprintf `(i  1 e 2 0 ]
+{
+"1820
+[v vfprintf@cfmt cfmt `*.31uc  1 a 1 36 ]
+[s S1508 _IO_FILE 0 ]
+"1817
+[v vfprintf@fp fp `*.30S1508  1 p 1 33 ]
+[v vfprintf@fmt fmt `*.31Cuc  1 p 1 34 ]
+[v vfprintf@ap ap `*.30*.30v  1 p 1 35 ]
+"1840
+} 0
+"1177
+[v _vfpfcnvrt vfpfcnvrt `(v  1 s 1 vfpfcnvrt ]
+{
+[u S1521 . 4 `i 1 sint 2 0 `ui 1 uint 2 0 `d 1 f 4 0 ]
+"1188
+[v vfpfcnvrt@convarg convarg `S1521  1 a 4 28 ]
+"1179
+[v vfpfcnvrt@c c `uc  1 a 1 32 ]
+[v vfpfcnvrt@cp cp `*.31uc  1 a 1 27 ]
+"1180
+[v vfpfcnvrt@done done `a  1 a 1 26 ]
+[s S1508 _IO_FILE 0 ]
+"1177
+[v vfpfcnvrt@fp fp `*.30S1508  1 p 1 22 ]
+[v vfpfcnvrt@fmt fmt `*.30*.31uc  1 p 1 23 ]
+[v vfpfcnvrt@ap ap `*.30*.30v  1 p 1 24 ]
+"1814
+} 0
+"8 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\nf_fputc.c
+[v _fputc fputc `(i  1 e 2 0 ]
+{
+[v fputc@c c `i  1 p 2 12 ]
+[u S1473 . 2 `*.30uc 1 buffer 1 0 `*.39Cuc 1 source 2 0 ]
+[s S1476 _IO_FILE 11 `S1473 1 . 2 0 `i 1 count 2 2 `[3]uc 1 ungetbuf 3 4 `i 1 ungetcnt 2 7 `i 1 limit 2 9 ]
+[v fputc@fp fp `*.30S1476  1 p 1 14 ]
+"24
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\putch.c
+[v _putch putch `(v  1 e 1 0 ]
+{
+"9
+} 0
+"1 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
+{
+[v abs@a a `i  1 p 2 18 ]
+"4
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"10
+[v ___awmod@sign sign `uc  1 a 1 17 ]
+[v ___awmod@counter counter `uc  1 a 1 16 ]
+"7
+[v ___awmod@dividend dividend `i  1 p 2 12 ]
+[v ___awmod@divisor divisor `i  1 p 2 14 ]
+"34
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.00\pic\sources\c99\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"10
+[v ___awdiv@quotient quotient `i  1 a 2 18 ]
+"11
+[v ___awdiv@sign sign `uc  1 a 1 17 ]
+[v ___awdiv@counter counter `uc  1 a 1 16 ]
+"7
+[v ___awdiv@dividend dividend `i  1 p 2 12 ]
+[v ___awdiv@divisor divisor `i  1 p 2 14 ]
+"41
+} 0
+"104 C:\Users\Danie\Desktop\ALMACEN.X\lcd.c
+[v _Lcd_Write_String Lcd_Write_String `(v  1 e 1 0 ]
+{
+"106
+[v Lcd_Write_String@i i `i  1 a 2 20 ]
+"104
+[v Lcd_Write_String@a a `*.35Cuc  1 p 2 16 ]
+"109
+} 0
+"277 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+[v _calibrar calibrar `(v  1 e 1 0 ]
+{
+"329
+} 0
+"256
+[v _Modificar Modificar `(v  1 e 1 0 ]
+{
+"275
+} 0
+"225
+[v _probar_1sg probar_1sg `(v  1 e 1 0 ]
+{
+"241
+} 0
+"174
+[v _estado estado `(v  1 e 1 0 ]
+{
+"182
+[v estado@i_705 i `uc  1 a 1 15 ]
+"179
+[v estado@i_704 i `uc  1 a 1 14 ]
+"176
+[v estado@i i `uc  1 a 1 13 ]
+"185
+} 0
+"20 C:\Users\Danie\Desktop/EEPROM_RW.X/eeprom.c
+[v _EEPROM_Read EEPROM_Read `(uc  1 e 1 0 ]
+{
+[v EEPROM_Read@dir dir `uc  1 p 1 wreg ]
+[v EEPROM_Read@dir dir `uc  1 p 1 wreg ]
+"22
+[v EEPROM_Read@dir dir `uc  1 p 1 12 ]
+"27
+} 0
+"152 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+[v _Clear Clear `(v  1 e 1 0 ]
+{
+"153
+[v Clear@i i `uc  1 a 1 14 ]
+"156
+} 0
+"108
+[v _Actualizar_Matriz Actualizar_Matriz `(v  1 e 1 0 ]
+{
+"133
+[v Actualizar_Matriz@i_693 i `uc  1 a 1 23 ]
+"122
+[v Actualizar_Matriz@i_692 i `uc  1 a 1 22 ]
+"111
+[v Actualizar_Matriz@i i `uc  1 a 1 21 ]
+"110
+[v Actualizar_Matriz@acum acum `uc  1 a 1 20 ]
+"150
+} 0
+"26 C:\Users\Danie\Desktop\ALMACEN.X\lcd.c
+[v _Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
+{
+[v Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
+"28
+[v Lcd_Set_Cursor@temp temp `uc  1 a 1 19 ]
+[v Lcd_Set_Cursor@y y `uc  1 a 1 18 ]
+[v Lcd_Set_Cursor@z z `uc  1 a 1 17 ]
+"26
+[v Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
+[v Lcd_Set_Cursor@b b `uc  1 p 1 15 ]
+"29
+[v Lcd_Set_Cursor@a a `uc  1 p 1 16 ]
+"61
+} 0
+"158 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
 [v _guardar guardar `(v  1 e 1 0 ]
 {
-"170
-[v guardar@i_693 i `uc  1 a 1 17 ]
-"166
-[v guardar@i_692 i `uc  1 a 1 16 ]
-"162
+"168
+[v guardar@i_700 i `uc  1 a 1 17 ]
+"164
+[v guardar@i_699 i `uc  1 a 1 16 ]
+"160
 [v guardar@i i `uc  1 a 1 15 ]
-"161
+"159
 [v guardar@media media `uc  1 a 1 14 ]
-"174
+"172
 } 0
 "3 C:\Users\Danie\Desktop/EEPROM_RW.X/eeprom.c
 [v _EEPROM_Write EEPROM_Write `(v  1 e 1 0 ]
@@ -491,38 +733,15 @@
 [v EEPROM_Write@dir dir `uc  1 p 1 13 ]
 "18
 } 0
-"85 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
-[v _detectar detectar `(v  1 e 1 0 ]
+"242 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+[v _MOD MOD `(v  1 e 1 0 ]
 {
-"104
-} 0
-"104 C:\Users\Danie\Desktop\ALMACEN.X\lcd.c
-[v _Lcd_Write_String Lcd_Write_String `(v  1 e 1 0 ]
-{
-"106
-[v Lcd_Write_String@i i `i  1 a 2 18 ]
-"104
-[v Lcd_Write_String@a a `*.31Cuc  1 p 1 16 ]
-"109
-} 0
-"238 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
-[v _dejar dejar `(v  1 e 1 0 ]
-{
-"260
-[v dejar@i_727 i `uc  1 a 1 18 ]
-"251
-[v dejar@i_726 i `uc  1 a 1 17 ]
-"242
-[v dejar@i i `uc  1 a 1 16 ]
-"239
-[v dejar@SALTO SALTO `uc  1 a 1 15 ]
-[v dejar@acum acum `uc  1 a 1 14 ]
-"299
-} 0
-"221
-[v _Modificar Modificar `(v  1 e 1 0 ]
-{
-"236
+[v MOD@F F `uc  1 p 1 wreg ]
+[v MOD@F F `uc  1 p 1 wreg ]
+[v MOD@C C `uc  1 p 1 12 ]
+[v MOD@x x `uc  1 p 1 13 ]
+[v MOD@F F `uc  1 p 1 14 ]
+"255
 } 0
 "129 C:\Users\Danie\Desktop\ALMACEN.X\lcd.c
 [v _Lcd_NoBlink Lcd_NoBlink `(v  1 e 1 0 ]
@@ -549,19 +768,19 @@
 {
 [v Lcd_CGRAM_CreateChar@add add `uc  1 p 1 wreg ]
 "169
-[v Lcd_CGRAM_CreateChar@i_890 i `uc  1 a 1 26 ]
+[v Lcd_CGRAM_CreateChar@i_916 i `uc  1 a 1 26 ]
 "165
-[v Lcd_CGRAM_CreateChar@i_889 i `uc  1 a 1 25 ]
+[v Lcd_CGRAM_CreateChar@i_915 i `uc  1 a 1 25 ]
 "161
-[v Lcd_CGRAM_CreateChar@i_888 i `uc  1 a 1 24 ]
+[v Lcd_CGRAM_CreateChar@i_914 i `uc  1 a 1 24 ]
 "157
-[v Lcd_CGRAM_CreateChar@i_887 i `uc  1 a 1 23 ]
+[v Lcd_CGRAM_CreateChar@i_913 i `uc  1 a 1 23 ]
 "153
-[v Lcd_CGRAM_CreateChar@i_886 i `uc  1 a 1 22 ]
+[v Lcd_CGRAM_CreateChar@i_912 i `uc  1 a 1 22 ]
 "149
-[v Lcd_CGRAM_CreateChar@i_885 i `uc  1 a 1 21 ]
+[v Lcd_CGRAM_CreateChar@i_911 i `uc  1 a 1 21 ]
 "145
-[v Lcd_CGRAM_CreateChar@i_884 i `uc  1 a 1 20 ]
+[v Lcd_CGRAM_CreateChar@i_910 i `uc  1 a 1 20 ]
 "141
 [v Lcd_CGRAM_CreateChar@i i `uc  1 a 1 19 ]
 "136
@@ -570,25 +789,7 @@
 [v Lcd_CGRAM_CreateChar@add add `uc  1 p 1 18 ]
 "173
 } 0
-"181
-[v _Lcd_CGRAM_Close Lcd_CGRAM_Close `(v  1 e 1 0 ]
-{
-"185
-} 0
-"106 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
-[v _Actualizar_Matriz Actualizar_Matriz `(v  1 e 1 0 ]
-{
-"131
-[v Actualizar_Matriz@i_685 i `uc  1 a 1 23 ]
-"120
-[v Actualizar_Matriz@i_684 i `uc  1 a 1 22 ]
-"109
-[v Actualizar_Matriz@i i `uc  1 a 1 21 ]
-"108
-[v Actualizar_Matriz@acum acum `uc  1 a 1 20 ]
-"151
-} 0
-"88 C:\Users\Danie\Desktop\ALMACEN.X\lcd.c
+"88
 [v _Lcd_Write_Char Lcd_Write_Char `(v  1 e 1 0 ]
 {
 [v Lcd_Write_Char@a a `uc  1 p 1 wreg ]
@@ -601,20 +802,10 @@
 [v Lcd_Write_Char@a a `uc  1 p 1 15 ]
 "102
 } 0
-"26
-[v _Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
+"181
+[v _Lcd_CGRAM_Close Lcd_CGRAM_Close `(v  1 e 1 0 ]
 {
-[v Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
-"28
-[v Lcd_Set_Cursor@temp temp `uc  1 a 1 19 ]
-[v Lcd_Set_Cursor@y y `uc  1 a 1 18 ]
-[v Lcd_Set_Cursor@z z `uc  1 a 1 17 ]
-"26
-[v Lcd_Set_Cursor@a a `uc  1 p 1 wreg ]
-[v Lcd_Set_Cursor@b b `uc  1 p 1 15 ]
-"29
-[v Lcd_Set_Cursor@a a `uc  1 p 1 16 ]
-"61
+"185
 } 0
 "11
 [v _Lcd_Cmd Lcd_Cmd `(v  1 e 1 0 ]
@@ -634,12 +825,12 @@
 [v Lcd_Port@a a `uc  1 p 1 12 ]
 "9
 } 0
-"189 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+"187 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
 [v _LowISR LowISR `IIL(v  1 e 1 0 ]
 {
-"192
+"190
 [v LowISR@dummy dummy `VEuc  1 a 1 11 ]
-"210
+"208
 } 0
 "26 C:\Users\Danie\Desktop\ALMACEN.X\lcd.c
 [v i1_Lcd_Set_Cursor Lcd_Set_Cursor `(v  1 e 1 0 ]
@@ -679,8 +870,8 @@
 [v i1Lcd_Port@a a `uc  1 p 1 0 ]
 "9
 } 0
-"212 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
+"210 C:\Users\Danie\Desktop\ALMACEN.X\ASCENSOR.c
 [v _Stop Stop `IIH(v  1 e 1 0 ]
 {
-"219
+"217
 } 0

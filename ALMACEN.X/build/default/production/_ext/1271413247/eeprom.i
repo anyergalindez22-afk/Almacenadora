@@ -5947,7 +5947,7 @@ unsigned char EEPROM_Read(unsigned char dir)
 
 void EEPROM_Clear(void)
 {
-    for(int i=0; i<256; i++)
+    for(char i=0; i<256; i++)
     {
         EEPROM_Write(i, 0xFF);
     }

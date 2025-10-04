@@ -3,8 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/XXX/Downloads/Almacenadora-main/Almacenadora-main/ALMACEN.X/lcd.c</file>
-            <file>file:/C:/Users/XXX/Downloads/Almacenadora-main/Almacenadora-main/ALMACEN.X/ASCENSOR.c</file>
+            <file>file:/C:/Users/Danie/Desktop/EEPROM_RW.X/eeprom.h</file>
+            <file>file:/C:/Users/Danie/Desktop/ALMACEN.X/ASCENSOR.c</file>
+            <file>file:/C:/Users/Danie/Desktop/ALMACEN.X/CONFIGURACION.h</file>
+            <file>file:/C:/Users/Danie/Desktop/ALMACEN.X/lcd.c</file>
+            <file>file:/C:/Users/Danie/Desktop/EEPROM_RW.X/eeprom.c</file>
+            <file>file:/C:/Users/Danie/Desktop/ALMACEN.X/lcd.h</file>
         </group>
     </open-files>
 </project-private>

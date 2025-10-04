@@ -670,11 +670,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _EEPROM_Clear ]
 [f ]
 "31
-[; ;../EEPROM_RW.X/eeprom.c: 31:     for(int i=0; i<256; i++)
+[; ;../EEPROM_RW.X/eeprom.c: 31:     for(char i=0; i<256; i++)
 {
-[v _i `i ~T0 @X0 1 a ]
-[e = _i -> 0 `i ]
-[e $ < _i -> 256 `i 397  ]
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 256 `i 397  ]
 [e $U 398  ]
 [e :U 397 ]
 "32
@@ -686,8 +686,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "34
 [; ;../EEPROM_RW.X/eeprom.c: 34:     }
 }
-[e ++ _i -> 1 `i ]
-[e $ < _i -> 256 `i 397  ]
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 256 `i 397  ]
 [e :U 398 ]
 }
 "35
